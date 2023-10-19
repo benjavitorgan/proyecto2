@@ -439,6 +439,37 @@ export default function NewAccounts() {
             </label>
           </div>
           <div className="App items-center py-3">
+  <label className="relative">
+    <input
+      className="w-full px-4 py-2 border-[2.5px] border-blue-700 rounded-md outline-none focus:border-blue-700 focus:text-black transition duration-200"
+      type="text"
+      id="newInput1"  // Asigna un ID único para el primer nuevo input
+      onClick={handleRoleInputClick}  // Reemplaza handleNewInput1Click con la función adecuada
+      onBlur={handleInputBlur}  // Reemplaza handleInputBlur con la función adecuada
+      onChange={handleChangeRole}  // Reemplaza handleChangeNewInput1 con la función adecuada
+    />
+    <span className={`text-1xl text-black bg-white text-opacity-75 absolute left-4 -top-[1.5px] transition duration-200 ${isRoleMoved || Role !== '' ? 'transform -translate-y-[20.5px] text-opacity-100 text-sm text-blue-700' : ''}`}>
+      &nbsp;Nuevo Input 1&nbsp;
+    </span>
+  </label>
+</div>
+
+          <div className="App items-center py-3">
+            <label className="relative">
+              <input
+                className="w-full px-4 py-2 border-[2.5px] border-blue-700 rounded-md outline-none focus:border-blue-700 focus:text-black transition duration-200"
+                type="text"
+                id="dni"  // Asigna un ID único para el segundo nuevo input
+                onClick={handleDniInputClick}  // Reemplaza handleNewInput2Click con la función adecuada
+                onBlur={handleInputBlur}  // Reemplaza handleInputBlur con la función adecuada
+                onChange={handleChangeDni}  // Reemplaza handleChangeNewInput2 con la función adecuada
+              />
+              <span className={`text-1xl text-black bg-white text-opacity-75 absolute left-4 -top-[1.5px] transition duration-200 ${isDniMoved || Dni !== '' ? 'transform -translate-y-[20.5px] text-opacity-100 text-sm text-blue-700' : ''}`}>
+                &nbsp;Nuevo Input 2&nbsp;
+              </span>
+            </label>
+          </div>
+          <div className="App items-center py-3">
             <label className="relative">
               <input
                 className="w-full px-4 py-2 border-[2.5px] border-blue-700 rounded-md outline-none focus:border-blue-700 focus:text-black transition duration-200"
