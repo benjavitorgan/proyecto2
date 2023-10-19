@@ -7,9 +7,7 @@ import {
   NextAuthOptions,
   DefaultSession, User,
 } from "next-auth";
-import { type DefaultAdapter } from "next-auth/adapters";
 import CredentialsProvider from "next-auth/providers/credentials";
-import { env } from "~/env.mjs";
 import { prisma } from "~/server/db";
 import bcrypt from "bcrypt";
 
@@ -40,13 +38,13 @@ declare module "next-auth" {
  * @see https://next-auth.js.org/configuration/options
  */
 const authOptions: NextAuthOptions = {
-  adapter: PrismaAdapter(prisma) as DefaultAdapter,
+  adapter: PrismaAdapter(prisma),
   providers: [
     CredentialsProvider({
       name: "credentials",
       credentials: {},
       async authorize(credentials) {
-        const { name, email, password, method, role, dni, phoneNumber, bloodType, sickness, age } = credentials as {
+        const { name, email, password, method, role, dni, phoneNumber, sickness, bloodType, age} = credentials as {
           name: string;
           email: string;
           password: string;
@@ -54,19 +52,19 @@ const authOptions: NextAuthOptions = {
           role: UserType;
           dni: string;
           phoneNumber: string;
-          bloodType: string;
           sickness: string;
+          bloodType: string;
           age: string;
         }
 
         const existingUser = await prisma.user.findUnique({
           where: {
-            dni
+            email
           }, 
+          
         }); 
 
         if (method === "signUp") {
-
           if (existingUser) {
             throw new Error('Este email ya esta registrado');
           }
@@ -74,19 +72,25 @@ const authOptions: NextAuthOptions = {
           const salt = await bcrypt.genSalt();
           const hashedPassword = await bcrypt.hash(password, salt);
 
-          const newUser = await prisma.user.create({
-            data: {
+          
+           const newUser = await prisma.user.create({
+             data: {
               name,
               email,
               password: hashedPassword,
               dni,
               phoneNumber,
               role,
-              age,
+              sickness,
               bloodType,
-              sickness
-            },
-          });
+              age
+             },
+           });
+  
+          if(newUser){
+            console.log("new user");
+          }
+          console.log("post or no user");
           console.log(newUser);
 
           return newUser;
@@ -106,6 +110,8 @@ const authOptions: NextAuthOptions = {
           throw new Error('Contraseña Incorrecta');
         }
 
+        console.log("hola");
+        console.log(existingUser);
         return existingUser;
 
       }
@@ -117,9 +123,10 @@ const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
-  secret: env.JWT_SECRET,
+  secret: process.env.JWT_SECRET,
   callbacks: {
     session: ({ session, token }) => {
+      console.log("session");
       if (session.user && token.sub) {
         session.user.id = token.sub;
       }

@@ -26,9 +26,19 @@ export default function NewAccounts() {
   const [isNombresMoved, setIsNombresMoved] = useState(false);
   const [isTelefonoMoved, setIsTelefonoMoved] = useState(false);
   const [isApellidoMoved, setIsApellidoMoved] = useState(false);
+  const [isBloodtypeMoved, setIsBloodtypeMoved] = useState(false);
+  const [isRoleMoved, setIsRoleMoved] = useState(false);
+  const [isSicknessMoved, setIsSicknessMoved] = useState(false);
+  const [isAgeMoved, setIsAgeMoved] = useState(false);
+  const [isDniMoved, setIsDniMoved] = useState(false);
   const [Nombres, setNombres] = useState('');
   const [Telefono, setTelefono] = useState('');
   const [Apellido, setApellido] = useState('');
+  const [Bloodtype, setBloodtype] = useState('');
+  const [Sickness, setSickness] = useState('');
+  const [Role, setRole] = useState('');  
+  const [Age, setAge] = useState('');
+  const [Dni, setDni] = useState('');
   const router = useRouter();
 
   const handleChangeEmail = (event: ChangeEvent<HTMLInputElement>) => {
@@ -73,6 +83,51 @@ export default function NewAccounts() {
     const nuevoTelefono = event.target.value;
     setTelefono(nuevoTelefono);
     const esValido = /^\d+$/.test(nuevoTelefono);
+    // Mostrar mensaje de error si hay letras en el número de teléfono
+    // Puedes usar otro estado para manejar el estado de validez del teléfono
+    // Aquí se establece en false si no es válido
+  };
+
+  const handleChangeAge = (event: ChangeEvent<HTMLInputElement>) => {
+    const newAge = event.target.value;
+    setAge(newAge);
+    const esValido = /^\d+$/.test(newAge);
+    // Mostrar mensaje de error si hay letras en el número de teléfono
+    // Puedes usar otro estado para manejar el estado de validez del teléfono
+    // Aquí se establece en false si no es válido
+  };
+
+  const handleBloodtype = (event: ChangeEvent<HTMLInputElement>) => {
+    const newBT = event.target.value;
+    setBloodtype(newBT);
+    const esValido = /^\d+$/.test(newBT);
+    // Mostrar mensaje de error si hay letras en el número de teléfono
+    // Puedes usar otro estado para manejar el estado de validez del teléfono
+    // Aquí se establece en false si no es válido
+  };
+
+  const handleChangeRole = (event: ChangeEvent<HTMLInputElement>) => {
+    const newRole = event.target.value;
+    setRole(newRole);
+    const esValido = /^\d+$/.test(newRole);
+    // Mostrar mensaje de error si hay letras en el número de teléfono
+    // Puedes usar otro estado para manejar el estado de validez del teléfono
+    // Aquí se establece en false si no es válido
+  };
+
+  const handleChangeSickness = (event: ChangeEvent<HTMLInputElement>) => {
+    const newSCK = event.target.value;
+    setSickness(newSCK);
+    const esValido = /^\d+$/.test(newSCK);
+    // Mostrar mensaje de error si hay letras en el número de teléfono
+    // Puedes usar otro estado para manejar el estado de validez del teléfono
+    // Aquí se establece en false si no es válido
+  };
+
+  const handleChangeDni = (event: ChangeEvent<HTMLInputElement>) => {
+    const newDni = event.target.value;
+    setDni(newDni);
+    const esValido = /^\d+$/.test(newDni);
     // Mostrar mensaje de error si hay letras en el número de teléfono
     // Puedes usar otro estado para manejar el estado de validez del teléfono
     // Aquí se establece en false si no es válido
@@ -149,6 +204,76 @@ export default function NewAccounts() {
 
   };
 
+  const handleRoleInputClick = () => {
+    setIsTelefonoMoved(false);
+    setIsNombresMoved(false);
+    setIsContraseñaMoved(false);
+    setIsConfirmarContraseñaMoved(false);
+    setIsEmailMoved(false);
+    setIsApellidoMoved(false);
+    setIsBloodtypeMoved (false);
+    setIsRoleMoved (true);
+    setIsSicknessMoved (false);
+    setIsAgeMoved (false);
+    setIsDniMoved(false);
+  };
+
+  const handleBloodtypeInputClick = () => {
+    setIsTelefonoMoved(false);
+    setIsNombresMoved(false);
+    setIsContraseñaMoved(false);
+    setIsConfirmarContraseñaMoved(false);
+    setIsEmailMoved(false);
+    setIsApellidoMoved(false);
+    setIsBloodtypeMoved (true);
+    setIsRoleMoved (true);
+    setIsSicknessMoved (false);
+    setIsAgeMoved (false);
+    setIsDniMoved(false);
+  };
+
+  const handleSicknessInputClick = () => {
+    setIsTelefonoMoved(false);
+    setIsNombresMoved(false);
+    setIsContraseñaMoved(false);
+    setIsConfirmarContraseñaMoved(false);
+    setIsEmailMoved(false);
+    setIsApellidoMoved(false);
+    setIsBloodtypeMoved (false);
+    setIsRoleMoved (true);
+    setIsSicknessMoved (true);
+    setIsAgeMoved (false);
+    setIsDniMoved(false);
+  };
+
+  const handleAgeInputClick = () => {
+    setIsTelefonoMoved(true);
+    setIsNombresMoved(false);
+    setIsContraseñaMoved(false);
+    setIsConfirmarContraseñaMoved(false);
+    setIsEmailMoved(false);
+    setIsApellidoMoved(false);
+    setIsBloodtypeMoved (false);
+    setIsRoleMoved (true);
+    setIsSicknessMoved (false);
+    setIsAgeMoved (true);
+    setIsDniMoved(false);
+  };
+
+  const handleDniInputClick = () => {
+    setIsTelefonoMoved(true);
+    setIsNombresMoved(false);
+    setIsContraseñaMoved(false);
+    setIsConfirmarContraseñaMoved(false);
+    setIsEmailMoved(false);
+    setIsApellidoMoved(false);
+    setIsBloodtypeMoved (false);
+    setIsRoleMoved (true);
+    setIsSicknessMoved (false);
+    setIsAgeMoved (false);
+    setIsDniMoved(true);
+  };
+
   const handleInputBlur = () => {
     setIsEmailMoved(false);
     setIsContraseñaMoved(false);
@@ -156,32 +281,68 @@ export default function NewAccounts() {
     setIsNombresMoved(false);
     setIsTelefonoMoved(false);
     setIsApellidoMoved(false);
+    setIsBloodtypeMoved (false);
+    setIsRoleMoved (false);
+    setIsSicknessMoved (false);
+    setIsAgeMoved (false);
+    setIsDniMoved(false);
   };
 
   const handleEnter = async () => {
+
+    if (Role == "OP") {
+      try {
+        const response = await signIn("credentials", {
+          email,
+          name: Nombres,
+          password: contraseña,
+          method: "signUp",
+          redirect: false,
+          dni: "47026765",
+          role: Role,
+          phoneNumber: Telefono,
+          sickness: Sickness,
+          bloodType: Bloodtype,
+          age: Age
+        });
+
     
-    console.log ("Hola");
-  
-    try {
-      const response = await signIn("credentials", {
-        email,
-        name: Nombres,
-        password: contraseña,
-        method: "signUp",
-        redirect: false,
-        dni: "47026765",
-        role: "OP",
-        phoneNumber: Telefono
-      });
-  
-      // if (response?.ok) {
-      //   void router.push("/PanelDeActividades"); // Redirect to the desired page
-      // } else {
-      //   alert("No se pudo entrar");
-      // }
-    } catch (error) {
-      console.error("Error:", error);
-      // Handle any errors that occur during the sign-in process
+        // if (response?.ok) {
+        //   void router.push("/PanelDeActividades"); // Redirect to the desired page
+        // } else {
+        //   alert("No se pudo entrar");
+        // }
+      } catch (error) {
+        console.error("Error:", error);
+        // Handle any errors that occur during the sign-in process
+      }
+    }
+    else{
+      try {
+        const response = await signIn("credentials", {
+          email,
+          name: Nombres,
+          password: contraseña,
+          method: "signUp",
+          redirect: false,
+          dni: "47026765",
+          role: Role,
+          phoneNumber: Telefono,
+          sickness: "",
+          bloodtype: "",
+          age: ""
+        });
+
+    
+        // if (response?.ok) {
+        //   void router.push("/PanelDeActividades"); // Redirect to the desired page
+        // } else {
+        //   alert("No se pudo entrar");
+        // }
+      } catch (error) {
+        console.error("Error:", error);
+        // Handle any errors that occur during the sign-in process
+      }
     }
   }
 
