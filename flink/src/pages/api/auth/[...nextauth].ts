@@ -106,9 +106,6 @@ const authOptions: NextAuthOptions = {
         if (!validatedPassword) {
           throw new Error('Contraseña Incorrecta');
         }
-
-        console.log("hola");
-        console.log(existingUser);
         return existingUser;
 
       }
