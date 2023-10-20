@@ -97,7 +97,7 @@ export default function NewAccounts() {
     // Aquí se establece en false si no es válido
   };
 
-  const handleBloodtype = (event: ChangeEvent<HTMLInputElement>) => {
+  const handleChangeBloodtype = (event: ChangeEvent<HTMLInputElement>) => {
     const newBT = event.target.value;
     setBloodtype(newBT);
     const esValido = /^\d+$/.test(newBT);
@@ -106,8 +106,7 @@ export default function NewAccounts() {
     // Aquí se establece en false si no es válido
   };
 
-  const handleChangeRole = (event: ChangeEvent<HTMLInputElement>) => {
-    const newRole = event.target.value;
+  const handleChangeRole = (newRole: string) => {
     setRole(newRole);
     const esValido = /^\d+$/.test(newRole);
     // Mostrar mensaje de error si hay letras en el número de teléfono
@@ -298,20 +297,19 @@ export default function NewAccounts() {
           password: contraseña,
           method: "signUp",
           redirect: false,
-          dni: "47026765",
+          dni: Dni,
           role: Role,
           phoneNumber: Telefono,
           sickness: Sickness,
           bloodType: Bloodtype,
           age: Age
-        });
-
-    
+        });  
         // if (response?.ok) {
         //   void router.push("/PanelDeActividades"); // Redirect to the desired page
         // } else {
         //   alert("No se pudo entrar");
         // }
+        console.log (response);
       } catch (error) {
         console.error("Error:", error);
         // Handle any errors that occur during the sign-in process
@@ -325,20 +323,19 @@ export default function NewAccounts() {
           password: contraseña,
           method: "signUp",
           redirect: false,
-          dni: "47026765",
+          dni: Dni,
           role: Role,
           phoneNumber: Telefono,
           sickness: "",
           bloodtype: "",
           age: ""
         });
-
-    
         // if (response?.ok) {
         //   void router.push("/PanelDeActividades"); // Redirect to the desired page
         // } else {
         //   alert("No se pudo entrar");
         // }
+        console.log (response);
       } catch (error) {
         console.error("Error:", error);
         // Handle any errors that occur during the sign-in process
@@ -439,22 +436,76 @@ export default function NewAccounts() {
             </label>
           </div>
           <div className="App items-center py-3">
-  <label className="relative">
-    <input
-      className="w-full px-4 py-2 border-[2.5px] border-blue-700 rounded-md outline-none focus:border-blue-700 focus:text-black transition duration-200"
-      type="text"
-      id="newInput1"  // Asigna un ID único para el primer nuevo input
-      onClick={handleRoleInputClick}  // Reemplaza handleNewInput1Click con la función adecuada
-      onBlur={handleInputBlur}  // Reemplaza handleInputBlur con la función adecuada
-      onChange={handleChangeRole}  // Reemplaza handleChangeNewInput1 con la función adecuada
-    />
-    <span className={`text-1xl text-black bg-white text-opacity-75 absolute left-4 -top-[1.5px] transition duration-200 ${isRoleMoved || Role !== '' ? 'transform -translate-y-[20.5px] text-opacity-100 text-sm text-blue-700' : ''}`}>
-      &nbsp;Nuevo Input 1&nbsp;
-    </span>
-  </label>
-</div>
-
+            <label className="relative">
+              <select
+                className="w-full px-4 py-2 border-[2.5px] border-blue-700 rounded-md outline-none focus:border-blue-700 focus:text-black transition duration-200"
+                id="Role"
+                onChange={(e) => {
+                  const selectedRole = e.target.value;
+                  handleChangeRole(selectedRole);
+                }}
+              >
+                <option value="OP">OP</option>
+                <option value="FM">FM</option>
+                <option value="NS">NS</option>
+              </select>
+              <span className={`text-1xl text-black bg-white text-opacity-75 absolute left-4 -top-[1.5px] transition duration-200 ${isRoleMoved || Role !== '' ? 'transform -translate-y-[20.5px] text-opacity-100 text-sm text-blue-700' : ''}`}>
+              &nbsp;Rol&nbsp;
+            </span>
+          </label>
+        </div>
+        {Role === 'OP' && (
           <div className="App items-center py-3">
+            <label className="relative">
+              <input
+                className="w-full px-4 py-2 border-[2.5px] border-blue-700 rounded-md outline-none focus-border-blue-700 focus-text-black transition duration-200"
+                type="text"
+                id="bloodType"
+                onClick={handleBloodtypeInputClick}
+                onBlur={handleInputBlur}
+                onChange={handleChangeBloodtype}
+              />
+              <span className={`text-1xl text-black bg-white text-opacity-75 absolute left-4 -top-[1.5px] transition duration-200 ${isBloodtypeMoved || Bloodtype !== '' ? 'transform -translate-y-[20.5px] text-opacity-100 text-sm text-blue-700' : ''}`}>
+                &nbsp;Tipo de sangre&nbsp;
+              </span>
+            </label>
+          </div>
+        )}
+        {Role === 'OP' && (
+          <div className="App items-center py-3">
+            <label className="relative">
+              <input
+                className="w-full px-4 py-2 border-[2.5px] border-blue-700 rounded-md outline-none focus-border-blue-700 focus-text-black transition duration-200"
+                type="text"
+                id="sickness"
+                onClick={handleSicknessInputClick}
+                onBlur={handleInputBlur}
+                onChange={handleChangeSickness}
+              />
+              <span className={`text-1xl text-black bg-white text-opacity-75 absolute left-4 -top-[1.5px] transition duration-200 ${isSicknessMoved || Sickness !== '' ? 'transform -translate-y-[20.5px] text-opacity-100 text-sm text-blue-700' : ''}`}>
+                &nbsp;Enfermedad&nbsp;
+              </span>
+            </label>
+          </div>
+        )}
+        {Role === 'OP' && (
+          <div className="App items-center py-3">
+            <label className="relative">
+              <input
+                className="w-full px-4 py-2 border-[2.5px] border-blue-700 rounded-md outline-none focus-border-blue-700 focus-text-black transition duration-200"
+                type="text"
+                id="age"
+                onClick={handleAgeInputClick}
+                onBlur={handleInputBlur}
+                onChange={handleChangeAge}
+              />
+              <span className={`text-1xl text-black bg-white text-opacity-75 absolute left-4 -top-[1.5px] transition duration-200 ${isAgeMoved || Age !== '' ? 'transform -translate-y-[20.5px] text-opacity-100 text-sm text-blue-700' : ''}`}>
+                &nbsp;Edad&nbsp;
+              </span>
+            </label>
+          </div>
+        )}
+        <div className="App items-center py-3">
             <label className="relative">
               <input
                 className="w-full px-4 py-2 border-[2.5px] border-blue-700 rounded-md outline-none focus:border-blue-700 focus:text-black transition duration-200"
@@ -465,7 +516,7 @@ export default function NewAccounts() {
                 onChange={handleChangeDni}  // Reemplaza handleChangeNewInput2 con la función adecuada
               />
               <span className={`text-1xl text-black bg-white text-opacity-75 absolute left-4 -top-[1.5px] transition duration-200 ${isDniMoved || Dni !== '' ? 'transform -translate-y-[20.5px] text-opacity-100 text-sm text-blue-700' : ''}`}>
-                &nbsp;Nuevo Input 2&nbsp;
+                &nbsp;DNI&nbsp;
               </span>
             </label>
           </div>

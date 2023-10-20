@@ -57,6 +57,8 @@ const authOptions: NextAuthOptions = {
           age: string;
         }
 
+        console.log(credentials);
+
         const existingUser = await prisma.user.findUnique({
           where: {
             email
@@ -86,12 +88,7 @@ const authOptions: NextAuthOptions = {
               age
              },
            });
-  
-          if(newUser){
-            console.log("new user");
-          }
-          console.log("post or no user");
-          console.log(newUser);
+          console.log("ACA" + newUser);
 
           return newUser;
         }
@@ -126,10 +123,10 @@ const authOptions: NextAuthOptions = {
   secret: process.env.JWT_SECRET,
   callbacks: {
     session: ({ session, token }) => {
-      console.log("session");
       if (session.user && token.sub) {
         session.user.id = token.sub;
       }
+      console.log("SESSION");
       return session;
     },
   },
